@@ -1,0 +1,23 @@
+import { MongoClient, ServerApiVersion } from "mongodb";
+
+const URI = "mongodb://mongodb:27017"
+const client = new MongoClient(URI, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    },
+});
+
+try {
+    await client.connect();
+    await client.db('admin').command({ping: 1});
+    console.log('inged your deployment. You Succesfully connected to MongoDB!');
+}
+catch(err) {
+    console.error(err);
+}
+
+let db = client.db('emplyees');
+
+export default db;
